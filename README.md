@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ### Backup and Restore:
 To manually initiate a backup:
 ``` bash
-python manage.py dbbackup
+python manage.py dbbackup --clean
 ```
 To restore a backup:
 ```bash
