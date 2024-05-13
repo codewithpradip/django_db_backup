@@ -128,9 +128,21 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Local database backup
+# DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'dbbackup'}
 
-DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'dbbackup'}
+# AWS or DigitalOcean backup
+DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DBBACKUP_STORAGE_OPTIONS = {
+    'access_key': config('ACCESS_KEY'),
+    'secret_key': config('DB_SECRET_KEY'),
+    'bucket_name': config('BUCKET_NAME'),
+    'default_acl': 'private',
+    'endpoint_url': config('ENDPOINT_URL'),
+    'location': 'dbback/',
+}
+
+
 DBBACKUP_HOSTNAME = "codewithpradip"
 DBBACKUP_TMP_FILE_MAX_SIZE = 10*1024*1024
 DBBACKUP_CLEANUP_KEEP = 2
